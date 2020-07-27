@@ -1,0 +1,22 @@
+<mat-card class="mat-card-light"> 
+    <mat-card-header style="display: flex; justify-content: space-between;">
+      <mat-card-title class="accent">
+        Pokemon
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      <a mat-button class="nav-link" *ngIf="pokemon"
+      [href]="pokemon.url" routerLinkActive="active">
+        <span class="accent">
+          Navigate to {{pokemon.name | titlecase}} API
+        </span>
+      </a>
+
+    </mat-card-content>
+    <mat-card-actions style="display: flex; justify-content: space-between;">
+      <button type="button" mat-button (click)="cancelled.emit();$event.stopImmediatePropagation();">
+        Cancel
+      </button>
+    </mat-card-actions>
+</mat-card>

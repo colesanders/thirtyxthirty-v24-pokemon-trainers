@@ -1,0 +1,40 @@
+@import '~@angular/material/theming';
+
+mat-slider {
+    width: 100%;
+    margin: auto;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.example-right-align {
+    text-align: right;
+}
+
+input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+  }
+  
+  input.example-right-align {
+    -moz-appearance: textfield;
+  }
+
+ngb-rating {
+    color: gold;
+    font-size: 150%;
+}
+
+.star-color {
+    color: gold;
+}
+
+h4 {
+    text-align: center; 
+    color: mediumblue;
+}
+
+mat-radio-button {
+    padding-right: 5px;
+}

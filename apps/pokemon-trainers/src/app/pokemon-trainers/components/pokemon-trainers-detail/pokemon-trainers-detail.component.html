@@ -1,0 +1,52 @@
+<mat-card class="mat-card-light"> 
+    <mat-card-header style="display: flex; justify-content: space-between;">
+      <mat-card-title class="accent">
+        <span *ngIf="pokemonTrainerForm.value.id !== null; else elseBlock">
+          Editing PokemonTrainer
+        </span>
+        <ng-template #elseBlock>
+          Create PokemonTrainer
+        </ng-template>
+      </mat-card-title>
+      
+    </mat-card-header>
+  <form [formGroup]="pokemonTrainerForm" >
+    <mat-card-content>
+
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name">
+      </mat-form-field>
+
+      <mat-label>Pokemon: </mat-label>
+      <mat-list >
+        <mat-list-item *ngFor="let pokemon of pokemonTrainerForm.value.pokemon; index as i"
+        style="display: flex; justify-content: space-between;">
+          <h3 matLine>{{pokemon | titlecase}}</h3>
+          
+          <button mat-icon-button color="warn" (click)="deletePokemon(i); $event.stopImmediatePropagation()" >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-list>
+      <br>
+
+      <section style="width: 100%; text-align: center;">
+        <button mat-icon-button (click)="openDialog()">
+          <mat-icon style="color: green;">
+            add
+          </mat-icon>
+        </button>
+      </section>
+      
+
+    </mat-card-content>
+    <mat-card-actions style="display: flex; justify-content: space-between;">
+      <button [disabled]="pokemonTrainerForm.invalid" type="submit" mat-button color="primary"
+      (click)="saved.emit(pokemonTrainerForm.value);$event.stopImmediatePropagation();cancel();">Save</button>
+      <button type="button" mat-button (click)="cancelled.emit();$event.stopImmediatePropagation();cancel();">
+        Cancel
+      </button>
+    </mat-card-actions>
+  </form>
+</mat-card>

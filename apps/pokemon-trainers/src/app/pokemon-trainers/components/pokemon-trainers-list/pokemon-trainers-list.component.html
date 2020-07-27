@@ -1,0 +1,23 @@
+<mat-card class="mat-card-light">
+    <mat-card-header>
+      <mat-card-title class="accent">
+        PokemonTrainer List
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item *ngFor="let pokemonTrainer of pokemonTrainers" (click)="selected.emit(pokemonTrainer)" style="cursor: pointer">
+          <h3 matLine> {{ pokemonTrainer.name | titlecase}}</h3>
+          <p matLine>
+            <span > 
+            </span> 
+          </p>
+  
+          <button mat-icon-button color="warn" (click)="deleted.emit(pokemonTrainer); $event.stopImmediatePropagation()" >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-list>
+      
+    </mat-card-content>
+  </mat-card>

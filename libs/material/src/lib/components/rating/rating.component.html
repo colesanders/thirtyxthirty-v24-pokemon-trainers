@@ -1,0 +1,20 @@
+<section style="display: flex; justify-content: space-between;">
+    <span *ngFor="let star of stars; index as i" >
+
+        <button mat-icon-button *ngIf="star == 1;else elseblock"
+        (click)="rated(i);" (mouseOver)="console.log(i)">
+            <mat-icon style="color: gold" svgIcon="thirty-rating">
+            </mat-icon>
+        </button>
+        
+        <ng-template #elseblock>
+            <button mat-icon-button 
+            (click)="rated(i);">
+                <mat-icon style="color: grey" svgIcon="thirty-rating">
+                </mat-icon>
+            </button>
+        </ng-template>
+        
+    </span>
+</section>
+

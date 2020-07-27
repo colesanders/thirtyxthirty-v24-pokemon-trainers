@@ -1,0 +1,32 @@
+<div class="pokemons-containers">
+    <mat-card class="mat-card-light">
+      <mat-card-header>
+        <mat-card-title class="accent">
+          Login
+        </mat-card-title>
+      </mat-card-header>
+      <form [formGroup]="loginForm" (ngSubmit)="login();">
+          <mat-card-content>
+              <mat-form-field class="full-width login-border" style="margin-bottom: 8px;">
+                  <input matInput required placeholder="Username" type="text"
+                  formControlName="username">
+              </mat-form-field>
+            <br>
+              <mat-form-field class="full-width login-border">
+                  <input matInput required placeholder="Password" type="text"
+                  formControlName="password">
+              </mat-form-field>
+          </mat-card-content>
+          <mat-card-actions>
+            <button [disabled]="loginForm.invalid" type="submit" mat-button color="primary"
+            class="login-border">
+                Login
+            </button>
+            <button styles="right: 5%" type="button" mat-button (click)="loginForm.reset();"
+            class="login-border">
+              Clear
+            </button>
+          </mat-card-actions>
+      </form>
+  </mat-card>
+  </div>

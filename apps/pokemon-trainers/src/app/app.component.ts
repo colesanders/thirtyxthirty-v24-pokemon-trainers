@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Message } from '@thirty/api-interfaces';
+import { LoginService } from '@thirty/ui-login';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'thirty-root',
@@ -8,6 +9,25 @@ import { Message } from '@thirty/api-interfaces';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  hello$ = this.http.get<Message>('/api/hello');
-  constructor(private http: HttpClient) {}
+  appInfo = {
+    title: "Pokemon App",
+    description: "30x30-V18"
+  };
+
+  links = [
+    { path: '/pokemons', title: 'Pokemons' },
+    { path: '/pokemon-trainers', title: 'Pokemon Trainers' },
+    { path: '/login', title: 'Login' },
+    { path: '/404', title: '404 Test Link'},
+  ];
+
+  constructor(
+    private http: HttpClient,
+    public loginService: LoginService,
+    private router: Router) {}
+  
+  logout(){
+    this.loginService.logout();
+    this.router.navigate(['/login']);
+  }
 }

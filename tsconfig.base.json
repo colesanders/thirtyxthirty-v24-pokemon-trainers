@@ -16,7 +16,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@thirty/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@thirty/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@thirty/core-data": ["libs/core-data/src/index.ts"],
+      "@thirty/core-state": ["libs/core-state/src/index.ts"],
+      "@thirty/material": ["libs/material/src/index.ts"],
+      "@thirty/ui-login": ["libs/ui-login/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

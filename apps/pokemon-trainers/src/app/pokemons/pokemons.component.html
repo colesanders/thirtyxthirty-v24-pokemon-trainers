@@ -1,0 +1,22 @@
+<div class="secondary-div">
+    <mat-toolbar class="secondary-toolbar">
+        <span>Pokemon List</span>
+    </mat-toolbar>
+</div>
+
+<div class="pokemons-containers">
+    <div class="pokemons-list">
+        <thirty-pokemons-list [pokemons]="pokemons$ | async" (selected)="select($event)">
+        </thirty-pokemons-list>
+    </div>
+    <div [@openClose]="detailOpen ? 'open' : 'closed'" >
+        <thirty-pokemons-detail [pokemon]="pokemon$ | async" (cancelled)="cancel()" 
+        (click)="focusDetail();$event.stopImmediatePropagation()" > 
+        </thirty-pokemons-detail>
+    </div>
+</div>
+
+<div class="pokemons-containers">
+    <router-outlet>
+    </router-outlet>
+</div>
