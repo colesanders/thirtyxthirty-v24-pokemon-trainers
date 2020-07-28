@@ -16,14 +16,6 @@ export class PokemonsFacade {
   allPokemons$ = this.store.pipe(select(PokemonsSelectors.getAllPokemons));
   selectedPokemon$ = this.store.pipe(select(PokemonsSelectors.getSelectedPokemon));
 
-  mutations$ = this.actions$.pipe(
-    filter((action: Action) =>
-    action.type === PokemonsActions.createPokemon({} as any).type ||
-    action.type === PokemonsActions.updatePokemon({} as any).type ||
-    action.type === PokemonsActions.deletePokemon({} as any).type
-    )
-  );
-
   constructor(private store: Store, private actions$: ActionsSubject) { }
 
   selectPokemon(selectedId: string) {
@@ -40,18 +32,6 @@ export class PokemonsFacade {
 
   loadPokemon(pokemonId: string) {
     this.dispatch(PokemonsActions.loadPokemon({ pokemonId }));
-  }
-
-  createPokemon(pokemon: Pokemon) {
-    this.dispatch(PokemonsActions.createPokemon({ pokemon }));
-  }
-
-  updatePokemon(pokemon: Pokemon) {
-    this.dispatch(PokemonsActions.updatePokemon({ pokemon }));
-  }
-
-  deletePokemon(pokemon: Pokemon) {
-    this.dispatch(PokemonsActions.deletePokemon({ pokemon }));
   }
 
   dispatch(action: Action) {

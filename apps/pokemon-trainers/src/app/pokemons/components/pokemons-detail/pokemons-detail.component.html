@@ -5,17 +5,14 @@
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
+      
+      <h3 matLine>{{pokemon?.name | titlecase}}</h3>
 
-      <a mat-button class="nav-link" *ngIf="pokemon"
-      [href]="pokemon.url" routerLinkActive="active">
-        <span class="accent">
-          Navigate to {{pokemon.name | titlecase}} API
-        </span>
-      </a>
+      <img *ngIf="pokemon?.sprites" [src]="pokemon.sprites.front_default"  alt="pokemon image">
 
     </mat-card-content>
     <mat-card-actions style="display: flex; justify-content: space-between;">
-      <button type="button" mat-button (click)="cancelled.emit();$event.stopImmediatePropagation();">
+      <button [hidden]="!pokemon" type="button" mat-button (click)="cancelled.emit();$event.stopImmediatePropagation();">
         Cancel
       </button>
     </mat-card-actions>

@@ -8,7 +8,6 @@ import {
 
 // Lookup the 'Pokemons' feature state managed by NgRx
 export const getPokemonsState = createFeatureSelector<
-  PokemonsPartialState,
   PokemonsState
 >(POKEMONS_FEATURE_KEY);
 

@@ -20,13 +20,17 @@
 
       <mat-label>Pokemon: </mat-label>
       <mat-list >
-        <mat-list-item *ngFor="let pokemon of pokemonTrainerForm.value.pokemon; index as i"
-        style="display: flex; justify-content: space-between;">
-          <h3 matLine>{{pokemon | titlecase}}</h3>
+        <mat-list-item *ngFor="let pokemon of (trainerPokemon$ | async); index as i"
+        class="list-item">
+          <h3 matLine>{{pokemon.name | titlecase}}</h3>
+
+          <img *ngIf="pokemon.sprites?.front_default" 
+          [src]="pokemon.sprites.front_default"  alt="pokemon image">
           
           <button mat-icon-button color="warn" (click)="deletePokemon(i); $event.stopImmediatePropagation()" >
             <mat-icon>delete</mat-icon>
           </button>
+
         </mat-list-item>
       </mat-list>
       <br>
@@ -43,7 +47,7 @@
     </mat-card-content>
     <mat-card-actions style="display: flex; justify-content: space-between;">
       <button [disabled]="pokemonTrainerForm.invalid" type="submit" mat-button color="primary"
-      (click)="saved.emit(pokemonTrainerForm.value);$event.stopImmediatePropagation();cancel();">Save</button>
+      (click)="saveTrainer();$event.stopImmediatePropagation();">Save</button>
       <button type="button" mat-button (click)="cancelled.emit();$event.stopImmediatePropagation();cancel();">
         Cancel
       </button>

@@ -26,15 +26,6 @@ export class PokemonsComponent implements OnInit {
 
   ngOnInit(): void {
     this.pokemonFacade.loadPokemons();
-    this.pokemonFacade.mutations$.subscribe((action: any) => this.refresh(action.type.split(' ')));
-  }
-
-  refresh(trigger: string){
-    const snackBarMessage = 'Pokemon ' + trigger[1] + 'd';
-    this.focusoutDetail();
-    this.snackBarService.openSnackBar(snackBarMessage, 'Okay', 1000);
-    this.pokemonFacade.resetSelectedPokemon();
-    this.pokemonFacade.loadPokemons();
   }
 
   focusDetail(){
@@ -46,7 +37,8 @@ export class PokemonsComponent implements OnInit {
   }
 
   select(pokemon: Pokemon): void{
-    this.pokemonFacade.selectPokemon(pokemon.id);
+    this.pokemonFacade.loadPokemon(pokemon.name);
+    this.pokemonFacade.selectPokemon(pokemon.name);
     this.focusDetail();
   }
 

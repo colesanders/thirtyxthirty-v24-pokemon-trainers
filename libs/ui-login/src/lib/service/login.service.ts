@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class LoginService {
-  private isAuthenticated = new BehaviorSubject(false);
+  private isAuthenticated = new BehaviorSubject(true);
   isAuthenticated$ = this.isAuthenticated.asObservable();
 
   mockUserProfile: Login = {

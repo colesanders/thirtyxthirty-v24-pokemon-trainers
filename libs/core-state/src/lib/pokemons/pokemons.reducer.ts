@@ -16,7 +16,9 @@ export interface PokemonsPartialState {
   readonly [POKEMONS_FEATURE_KEY]: PokemonsState;
 }
 
-export const pokemonAdapter: EntityAdapter<Pokemon> = createEntityAdapter();
+export const pokemonAdapter: EntityAdapter<Pokemon> = createEntityAdapter({
+  selectId: pokemon => pokemon.name
+});
 
 export const initialPokemonsState: PokemonsState = pokemonAdapter.getInitialState({
   // set initial required properties
@@ -42,27 +44,9 @@ const _pokemonsReducer = createReducer(
     (state, { pokemon }) =>
     pokemonAdapter.upsertOne(pokemon, { ...state, loaded: true })
   ),
-  // Add pokemon
-  on(PokemonsActions.createPokemonSuccess,
-    (state, { pokemon }) =>
-    pokemonAdapter.addOne(pokemon, state)
-  ),
-  // Update pokemon
-  on(PokemonsActions.updatePokemonSuccess,
-    (state, { pokemon }) =>
-    pokemonAdapter.updateOne({ id: pokemon.id, changes: pokemon }, state)
-  ),
-  // Delete pokemon
-  on(PokemonsActions.deletePokemonSuccess,
-    (state, { pokemon }) =>
-    pokemonAdapter.removeOne(pokemon.id, state)
-  ),
 
   // failure actions
   on(
-    PokemonsActions.deletePokemonFailure,
-    PokemonsActions.updatePokemonFailure,
-    PokemonsActions.createPokemonFailure,
     PokemonsActions.loadPokemonFailure,
     PokemonsActions.loadPokemonsFailure,
     (state, { error }) => ({

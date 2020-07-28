@@ -5,7 +5,31 @@ export interface Message {
 export interface Pokemon {
   id: string,
   name: string,
-  url: string
+
+  url?: string,
+
+  abilities?: [],
+  base_experience?: number,
+  forms?: [],
+  height?: number,
+  held_items?: [],
+  is_default?: boolean,
+  location_area_encounters?: string,
+  moves?: [],
+  species?: {},
+  sprites?: {
+    back_default: string,
+    back_female: string,
+    back_shiny: string,
+    back_shiny_female: string,
+    front_default: string,
+    front_female: string,
+    front_shiny: string,
+    front_shiny_female: string,
+  },
+  stats?: [],
+  types?: [],
+  weight?: number,
 }
 
 export interface PokemonApiObj {
@@ -18,7 +42,7 @@ export interface PokemonApiObj {
 export interface PokemonTrainer {
   id: string,
   name: string,
-  pokemons: Pokemon[],
+  pokemons?: string[]
 }
 
 export interface Pet {

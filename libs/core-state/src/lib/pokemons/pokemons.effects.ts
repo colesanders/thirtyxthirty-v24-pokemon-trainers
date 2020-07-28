@@ -27,41 +27,10 @@ export class PokemonsEffects {
   @Effect() loadPokemon$ = this.actions$.pipe(
     ofType(PokemonsActions.loadPokemon),
     fetch({
-      run: (action) => this.pokemonsService.byId(action.pokemonId).pipe(
+      run: (action) => this.pokemonsService.byName(action.pokemonId).pipe(
         map((pokemon: Pokemon) => PokemonsActions.loadPokemonSuccess({ pokemon }))
       ),
       onError: (action, error) => PokemonsActions.loadPokemonFailure({ error })
-    })
-  );
-
-  @Effect() createPokemon$ = this.actions$.pipe(
-    ofType(PokemonsActions.createPokemon),
-    pessimisticUpdate({
-      run: (action) => this.pokemonsService.create(action.pokemon).pipe(
-        map((pokemon: Pokemon) => PokemonsActions.createPokemonSuccess({ pokemon }))
-      ),
-      onError: (action, error) => PokemonsActions.createPokemonFailure({ error })
-    })
-  );
-
-  @Effect() updatePokemon$ = this.actions$.pipe(
-    ofType(PokemonsActions.updatePokemon),
-    pessimisticUpdate({
-      run: (action) => this.pokemonsService.update(action.pokemon).pipe(
-        map((pokemon: Pokemon) => 
-          PokemonsActions.updatePokemonSuccess({ pokemon }))
-      ),
-      onError: (action, error) => PokemonsActions.updatePokemonFailure({ error })
-    })
-  );
-
-  @Effect() deletePokemon$ = this.actions$.pipe(
-    ofType(PokemonsActions.deletePokemon),
-    pessimisticUpdate({
-      run: (action) => this.pokemonsService.delete(action.pokemon.id).pipe(
-        map((pokemon: Pokemon) => PokemonsActions.deletePokemonSuccess({ pokemon })),
-      ),
-      onError: (action, error) => PokemonsActions.deletePokemonFailure({ error })
     })
   );
 

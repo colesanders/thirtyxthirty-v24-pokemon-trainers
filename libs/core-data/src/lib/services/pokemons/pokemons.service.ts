@@ -18,23 +18,7 @@ export class PokemonsService {
   }
 
   byName(name: string): Observable<Pokemon>{
-    return this.http.get<Pokemon>(BASE_URL + '/' + name);
-  }
-
-  byId(id): Observable<Pokemon>{
-    return this.http.get<Pokemon>(this.getUrl(id));
-  }
-
-  create(pokemon: Pokemon): Observable<Pokemon>{
-    return this.http.post<Pokemon>(BASE_URL, pokemon);
-  }
-
-  update(pokemon: Pokemon): Observable<Pokemon>{
-    return this.http.put<Pokemon>(this.getUrl(pokemon.id), pokemon);
-  }
-
-  delete(id): Observable<Pokemon>{
-    return this.http.delete<Pokemon>(this.getUrl(id));
+    return this.http.get<Pokemon>(this.getUrl(name));
   }
 
   getUrl(id?: string) { 

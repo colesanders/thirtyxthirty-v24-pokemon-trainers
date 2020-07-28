@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { filter } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 import { select, Store, Action, ActionsSubject } from '@ngrx/store';
 
 import { PokemonTrainer } from '@thirty/api-interfaces';
@@ -15,6 +15,7 @@ export class PokemonTrainersFacade {
   loaded$ = this.store.pipe(select(PokemonTrainersSelectors.getPokemonTrainersLoaded));
   allPokemonTrainers$ = this.store.pipe(select(PokemonTrainersSelectors.getAllPokemonTrainers));
   selectedPokemonTrainer$ = this.store.pipe(select(PokemonTrainersSelectors.getSelectedPokemonTrainer));
+  trainerPokemon$ = this.store.pipe(select(PokemonTrainersSelectors.getTrainerPokemons));
 
   mutations$ = this.actions$.pipe(
     filter((action: Action) =>

@@ -35,9 +35,7 @@ export class PokemonTrainersComponent implements OnInit {
 
   refresh(trigger: string){
     const snackBarMessage = 'Pokemon Trainer ' + trigger[1] + 'd';
-    this.focusoutDetail();
     this.snackBarService.openSnackBar(snackBarMessage, 'Okay', 1000);
-    this.pokemonTrainersFacade.resetSelectedPokemonTrainer();
     this.pokemonTrainersFacade.loadPokemonTrainers();
   }
 
@@ -59,7 +57,7 @@ export class PokemonTrainersComponent implements OnInit {
   }
 
   save(pokemonTrainer: PokemonTrainer): void{
-    if(pokemonTrainer.id !== null){
+    if(pokemonTrainer.id){
       this.pokemonTrainersFacade.updatePokemonTrainer(pokemonTrainer);
     }else {
       this.pokemonTrainersFacade.createPokemonTrainer(pokemonTrainer);

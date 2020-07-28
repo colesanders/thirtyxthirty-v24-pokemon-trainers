@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { PokemonTrainersService } from '@thirty/core-data';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { fetch, pessimisticUpdate } from '@nrwl/angular';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, exhaustMap, merge, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 import * as PokemonTrainersActions from './pokemon-trainers.actions';
-import { PokemonTrainer } from '@thirty/api-interfaces';
+import { PokemonTrainer, Pokemon } from '@thirty/api-interfaces';
+import { PokemonsFacade } from '../pokemons/pokemons.facade';
 
 @Injectable()
 export class PokemonTrainersEffects {
@@ -26,6 +28,19 @@ export class PokemonTrainersEffects {
       ),
       onError: (action, error) => PokemonTrainersActions.loadPokemonTrainerFailure({ error })
     })
+  );
+
+  @Effect() loadTrainerPokemons = this.actions$.pipe(
+    ofType(PokemonTrainersActions.loadPokemonTrainerSuccess),
+    exhaustMap(({ pokemonTrainer }) =>
+      merge(
+        pokemonTrainer.pokemons.map((pokemon) =>{
+          console.log(pokemon);
+
+          return this.pokemonsFacade.loadPokemon(pokemon)
+        }),
+      ),
+    )
   );
 
   @Effect() createPokemonTrainer$ = this.actions$.pipe(
@@ -70,6 +85,7 @@ export class PokemonTrainersEffects {
 
   constructor(
     private actions$: Actions,
-    private pokemonTrainersService: PokemonTrainersService
+    private pokemonTrainersService: PokemonTrainersService,
+    private pokemonsFacade: PokemonsFacade
   ) {}
 }

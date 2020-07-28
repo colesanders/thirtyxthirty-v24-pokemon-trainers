@@ -9,8 +9,14 @@ mat-form-field {
     width: 100%;
 }
 
-.example-right-align {
-    text-align: right;
+.list-item{
+    display: flex;
+    justify-content: space-between;
+    height: auto !important;
+}
+
+img {
+    height: 50px;
 }
 
 input.example-right-align::-webkit-inner-spin-button {
@@ -21,20 +27,3 @@ input.example-right-align::-webkit-inner-spin-button {
     -moz-appearance: textfield;
   }
 
-ngb-rating {
-    color: gold;
-    font-size: 150%;
-}
-
-.star-color {
-    color: gold;
-}
-
-h4 {
-    text-align: center; 
-    color: mediumblue;
-}
-
-mat-radio-button {
-    padding-right: 5px;
-}
