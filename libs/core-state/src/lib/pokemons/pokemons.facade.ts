@@ -30,6 +30,12 @@ export class PokemonsFacade {
     this.dispatch(PokemonsActions.resetSelectedPokemon());
   }
 
+  loadMax() {
+    const bounds: number[] = [0,964]
+
+    this.dispatch(PokemonsActions.loadPokemonsByBounds({ bounds }));
+  }
+
   loadPokemons() {
     this.dispatch(PokemonsActions.loadPokemons());
   }

@@ -1,0 +1,15 @@
+<span class="accent">
+    Choose A Trainer To Add This Pokemon To
+</span>
+
+<thirty-pokemon-trainers-list [delete]="false" [pokemonTrainers]="(data.pokemonTrainers$ | async)" (selected)="select($event)">
+    
+</thirty-pokemon-trainers-list>
+
+    
+
+<mat-card-actions>
+    <button mat-button (click)="cancel()">
+        Cancel
+    </button>
+</mat-card-actions>

@@ -1,5 +1,5 @@
-<mat-card class="mat-card-dark"> 
-    <div *ngIf="(pokemonTrainer$|async) !== undefined && (pokemonTrainer$|async) !== null">
+<mat-card class="mat-card-dark pokemons-overview" style="width: 100%"> 
+    <div *ngIf="(pokemonTrainer$|async)">
       <mat-card-header style="display: flex; justify-content: space-between;">
         <mat-card-title class="accent">
           PokemonTrainer: 
@@ -15,27 +15,79 @@
       <mat-divider [inset]="true"></mat-divider>
       <mat-card-content>
 
-        <table matSort >
-
-        </table>
-
-
-        <div *ngFor="let pokemon of trainerPokemon$|async" >
+        <table mat-table [dataSource]="(trainerPokemon$|async)" matSort class="mat-elevation-z8" >
           
-          <h3 class="stat-bar">
-            {{pokemon.name | titlecase}}: 
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let pokemon"> {{pokemon.name | titlecase}} </td>
+          </ng-container>
 
-            <span *ngFor="let stat of pokemon.stats" [style]="'color: ' + getStatColor(stat.stat.name)">
-              <mat-icon [svgIcon]="getStatIcon(stat.stat.name)">
-                
-              </mat-icon>
-              
-              {{stat.base_stat}}
-            </span>
-          </h3>
-          <mat-divider [inset]="true"></mat-divider>
+          <!-- Health Column -->
+          <ng-container matColumnDef="hp">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Health </th>
+            <td mat-cell *matCellDef="let pokemon"> 
+              <span *ngIf="pokemon.stats" [style]="'color: ' + getStatColor(pokemon.stats[0].stat.name)">
+                <mat-icon [svgIcon]="getStatIcon(pokemon.stats[0].stat.name)"></mat-icon>
+                {{ pokemon.stats[0].base_stat }} 
+              </span>
+            </td>
+          </ng-container>
 
-        </div>
+          <ng-container matColumnDef="attack">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Attack </th>
+            <td mat-cell *matCellDef="let pokemon"> 
+              <span *ngIf="pokemon.stats" [style]="'color: ' + getStatColor(pokemon.stats[1].stat.name)">
+                <mat-icon [svgIcon]="getStatIcon(pokemon.stats[1].stat.name)"></mat-icon>
+                {{ pokemon.stats[1].base_stat }} 
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="defense">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Defense </th>
+            <td mat-cell *matCellDef="let pokemon"> 
+              <span *ngIf="pokemon.stats" [style]="'color: ' + getStatColor(pokemon.stats[2].stat.name)">
+                <mat-icon [svgIcon]="getStatIcon(pokemon.stats[2].stat.name)"></mat-icon>
+                {{ pokemon.stats[2].base_stat }} 
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="special-attack">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Special Attack </th>
+            <td mat-cell *matCellDef="let pokemon"> 
+              <span *ngIf="pokemon.stats" [style]="'color: ' + getStatColor(pokemon.stats[3].stat.name)">
+                <mat-icon [svgIcon]="getStatIcon(pokemon.stats[3].stat.name)"></mat-icon>
+                {{ pokemon.stats[3].base_stat }} 
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="special-defense">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Special Defense </th>
+            <td mat-cell *matCellDef="let pokemon"> 
+              <span *ngIf="pokemon.stats" [style]="'color: ' + getStatColor(pokemon.stats[4].stat.name)">
+                <mat-icon [svgIcon]="getStatIcon(pokemon.stats[4].stat.name)"></mat-icon>
+                {{ pokemon.stats[4].base_stat }} 
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="speed">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Speed </th>
+            <td mat-cell *matCellDef="let pokemon"> 
+              <span *ngIf="pokemon.stats" [style]="'color: ' + getStatColor(pokemon.stats[5].stat.name)">
+                <mat-icon [svgIcon]="getStatIcon(pokemon.stats[5].stat.name)"></mat-icon>
+                {{ pokemon.stats[5].base_stat }} 
+              </span>
+            </td>
+          </ng-container>
+          
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let pokemon; columns: displayedColumns;"></tr>
+        </table>
 
       </mat-card-content>
   

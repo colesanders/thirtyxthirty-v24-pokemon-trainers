@@ -18,10 +18,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatChipsModule } from'@angular/material/chips';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle'
-import { MatDialogModule } from '@angular/material/dialog'
-import { MatTabsModule } from '@angular/material/tabs'
-import { MatPaginatorModule } from '@angular/material/paginator'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatAutocompleteModule } from '@angular/material/autocomplete'
 
 import { IconRegistrarService } from './services/icon-registrar.service';
 
@@ -29,6 +31,7 @@ import { IconRegistrarService } from './services/icon-registrar.service';
 @NgModule({
   exports: [
     MatButtonModule,
+    MatAutocompleteModule,
     MatCardModule,
     MatCheckboxModule,
     MatFormFieldModule,
@@ -49,7 +52,9 @@ import { IconRegistrarService } from './services/icon-registrar.service';
     MatSlideToggleModule,
     MatDialogModule,
     MatTabsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    
   ],
 })
 export class MaterialModule {

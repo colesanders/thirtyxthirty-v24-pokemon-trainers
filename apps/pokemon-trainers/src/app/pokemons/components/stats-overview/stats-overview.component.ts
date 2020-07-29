@@ -20,7 +20,6 @@ export class StatsOverviewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('init')
     this.get()
   }
 

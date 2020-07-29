@@ -5,15 +5,30 @@
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      
-      <h3 matLine>{{pokemon?.name | titlecase}}</h3>
+      <span *ngIf="pokemon;else choose">
 
-      <img *ngIf="pokemon?.sprites" [src]="pokemon.sprites.front_default"  alt="pokemon image">
+        <h3 matLine>{{pokemon.name | titlecase}}</h3>
+
+        
+        <img *ngIf="pokemon.sprites; else elseblock" [src]="pokemon.sprites.front_default"  alt="pokemon image">
+        
+          
+        <ng-template #elseblock>
+          <mat-spinner></mat-spinner>
+        </ng-template>
+      </span>
+      <ng-template #choose>
+        <h3 matLine>Choose Pokemon!</h3>
+      </ng-template>
+      
 
     </mat-card-content>
-    <mat-card-actions style="display: flex; justify-content: space-between;">
-      <button [hidden]="!pokemon" type="button" mat-button (click)="cancelled.emit();$event.stopImmediatePropagation();">
+    <mat-card-actions *ngIf="pokemon" style="display: flex; justify-content: space-between;">
+      <button type="button" mat-button (click)="cancelled.emit();$event.stopImmediatePropagation();">
         Cancel
+      </button>
+      <button mat-icon-button style="margin-right: 15px;" (click)="openDialog()">
+        <mat-icon style="color: green;">add</mat-icon>
       </button>
     </mat-card-actions>
 </mat-card>

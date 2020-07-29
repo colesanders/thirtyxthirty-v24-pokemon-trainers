@@ -141,3 +141,18 @@ mat-sidenav {
     border-radius: 10px;
   }
 }
+
+.mat-card-dark {
+  background-color: grey;
+  border: medium solid black;
+  border-radius: 10px;
+
+  table{
+    background-color: grey;
+  }
+}
+.mat-card-light {
+  background-color: whitesmoke;
+  border: medium solid black;
+  border-radius: 10px;
+}

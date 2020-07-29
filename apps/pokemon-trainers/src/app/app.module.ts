@@ -28,6 +28,7 @@ import { PokemonTrainersListComponent } from './pokemon-trainers/components/poke
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PokemonTrainersSelectComponent } from './pokemon-trainers/components/pokemon-trainers-select/pokemon-trainers-select.component';
 import { StatsOverviewComponent } from './pokemons/components/stats-overview/stats-overview.component';
+import { SelectTrainerComponent } from './pokemons/components/select-trainer/select-trainer.component';
 
 
 
@@ -47,9 +48,11 @@ import { StatsOverviewComponent } from './pokemons/components/stats-overview/sta
     MatChipComponent,
     PokemonTrainersSelectComponent,
     StatsOverviewComponent,
+    SelectTrainerComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
     CoreStateModule,
@@ -57,7 +60,6 @@ import { StatsOverviewComponent } from './pokemons/components/stats-overview/sta
     FormsModule,
     RoutingModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
     StoreModule.forRoot(fromPokemons.pokemonsReducer, {}),
     StoreModule.forRoot(fromPokemons.pokemonTrainersReducer, {}),
     EffectsModule.forRoot([fromPokemons.PokemonsEffects]),

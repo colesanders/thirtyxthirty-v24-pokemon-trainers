@@ -1,23 +1,31 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PokemonTrainer, Pokemon, 
   getStatColor, PokemonStatColors,
   getStatIcon, PokemonStatIcons } from '@thirty/api-interfaces';
 import { PokemonTrainersFacade } from '@thirty/core-state';
 import { Observable } from 'rxjs';
+
+
 import {Sort} from '@angular/material/sort';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'thirty-pokemons-overview',
   templateUrl: './pokemon-trainers-overview.component.html',
   styleUrls: ['./pokemon-trainers-overview.component.scss']
 })
-export class PokemonTrainersOverviewComponent implements OnInit, OnChanges {
+export class PokemonTrainersOverviewComponent implements OnInit {
   pokemonTrainer$: Observable<PokemonTrainer> = this.pokemonTrainersFacade.selectedPokemonTrainer$;
   trainerPokemon$: Observable<Pokemon[]> = this.pokemonTrainersFacade.trainerPokemon$;
 
-  sortedData: Pokemon[];
+  displayedColumns: string[] = ['name', "hp", 'attack', 'defense', 'special-attack', 'special-defense', 'speed'];
   pokemons: Pokemon[];
+  dataSource;
+
+
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(
     private route: ActivatedRoute, 
@@ -27,38 +35,16 @@ export class PokemonTrainersOverviewComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.get();
-    this.pokemonTrainersFacade.mutations$.subscribe((action: any) => this.get());
   }
 
-  ngOnChanges(): void{
-    this.get();
-  }
-
-  setData(data: Pokemon[]){
+  setData(data: Pokemon[]): Pokemon[]{
+    this.dataSource = new MatTableDataSource(data);
     this.pokemons = data;
+    //this.dataSource.sort = this.sort;
+
+    return data;
   }
 
-  sortData(sort: Sort) {
-    const data = this.pokemons.slice();
-    if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
-      return;
-    }
-
-    this.sortedData = data.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-      switch (sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
-        case 'hp': return compare(a.stats[0].base_stat, b.stats[0].base_stat, isAsc);
-        case 'attack': return compare(a.stats[1].base_stat, b.stats[1].base_stat, isAsc);
-        case 'defense': return compare(a.stats[2].base_stat, b.stats[2].base_stat, isAsc);
-        case 'special-attack': return compare(a.stats[3].base_stat, b.stats[3].base_stat, isAsc);
-        case 'special-defense': return compare(a.stats[4].base_stat, b.stats[4].base_stat, isAsc);
-        case 'speed': return compare(a.stats[4].base_stat, b.stats[4].base_stat, isAsc);
-        default: return 0;
-      }
-    });
-  }
 
   getStatIcon(stat: string){
     const statColor = PokemonStatIcons[getStatIcon(stat)];
@@ -82,6 +68,3 @@ export class PokemonTrainersOverviewComponent implements OnInit, OnChanges {
   }
 }
 
-function compare(a: number | string, b: number | string, isAsc: boolean) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-}

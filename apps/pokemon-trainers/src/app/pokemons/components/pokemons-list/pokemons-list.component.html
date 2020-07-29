@@ -4,10 +4,27 @@
         Pokemons List 
       </mat-card-title>
 
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input placeholder="Search"matInput 
+                 [matAutocomplete]="auto" [formControl]="myControl"
+                 (click)="search()">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+          (optionSelected)="select($event.option.value)">
+            <mat-option *ngFor="let pokemon of (filteredPokemon|async)" [value]="pokemon"
+            >
+              <span>
+                {{pokemon.name}}
+              </span>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+
     </mat-card-header>
     <mat-card-content>
       <mat-list>
-        <mat-list-item *ngFor="let pokemon of pokemons | slice:sliceStart:sliceEnd ; last as last" (click)="selected.emit(pokemon)" style="cursor: pointer">
+        <mat-list-item *ngFor="let pokemon of pokemons | slice:sliceStart:sliceEnd ; last as last" (click)="select(pokemon)" style="cursor: pointer">
           <h3 matLine> {{ pokemon.name | titlecase}}</h3>
           <p matLine>
             <span >
