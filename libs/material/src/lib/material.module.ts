@@ -23,7 +23,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatAutocompleteModule } from '@angular/material/autocomplete'
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSortModule } from '@angular/material/sort'
 
 import { IconRegistrarService } from './services/icon-registrar.service';
 
@@ -31,6 +32,7 @@ import { IconRegistrarService } from './services/icon-registrar.service';
 @NgModule({
   exports: [
     MatButtonModule,
+    MatSortModule,
     MatAutocompleteModule,
     MatCardModule,
     MatCheckboxModule,

@@ -9,13 +9,13 @@
         </mat-card-subtitle>
 
         <h3 matline class="pokemon-counter accent">
-          {{(trainerPokemon$ | async).length}} / 6 P
+          {{ (trainerPokemon$|async).length}} / 6 P
         </h3>
       </mat-card-header>
       <mat-divider [inset]="true"></mat-divider>
       <mat-card-content>
 
-        <table mat-table [dataSource]="(trainerPokemon$|async)" matSort class="mat-elevation-z8" >
+        <table #table mat-table (matSortChange)="sortData($event)" [dataSource]="trainerPokemon$|async" matSort class="mat-elevation-z8" >
           
           <!-- Name Column -->
           <ng-container matColumnDef="name">

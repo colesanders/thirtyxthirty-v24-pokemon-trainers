@@ -45,9 +45,9 @@ export class PokemonTrainersDetailComponent implements OnInit, OnChanges{
     }
   }
 
-  deletePokemon(index: number) {
+  deletePokemon(pokemon: Pokemon) {
     const pokemonControl = this.pokemonTrainerForm.get('pokemons');
-    const filteredPokemon = pokemonControl.value.filter((pokemon, i) => i !== index);
+    const filteredPokemon = this.delete(pokemonControl.value, pokemon.name);
     pokemonControl.patchValue(filteredPokemon);
     this.saveTrainer();
   }
@@ -56,6 +56,13 @@ export class PokemonTrainersDetailComponent implements OnInit, OnChanges{
     this.saved.emit(this.pokemonTrainerForm.value);
     
     this.cancel();
+  }
+
+  delete(list: string[], item: string): string[]{
+    const index = list.indexOf(item);
+    list = list.filter((str, i)=> i !== index);
+
+    return list;
   }
 
   openDialog(): void {

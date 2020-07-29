@@ -32,7 +32,7 @@
           <img *ngIf="pokemon.sprites?.front_default" 
           [src]="pokemon.sprites.front_default"  alt="pokemon image">
           
-          <button mat-icon-button color="warn" (click)="deletePokemon(i); $event.stopImmediatePropagation()" >
+          <button mat-icon-button color="warn" (click)="deletePokemon(pokemon); $event.stopImmediatePropagation()" >
             <mat-icon>delete</mat-icon>
           </button>
 
