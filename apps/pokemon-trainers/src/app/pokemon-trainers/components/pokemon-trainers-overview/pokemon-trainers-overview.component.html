@@ -1,16 +1,42 @@
-<mat-card class="mat-card-light"> 
+<mat-card class="mat-card-dark"> 
     <div *ngIf="(pokemonTrainer$|async) !== undefined && (pokemonTrainer$|async) !== null">
       <mat-card-header style="display: flex; justify-content: space-between;">
         <mat-card-title class="accent">
           PokemonTrainer: 
         </mat-card-title>
         <mat-card-subtitle>
-          {{ (pokemonTrainer$ | async).name }} 
+          {{ (pokemonTrainer$ | async).name | titlecase}} 
         </mat-card-subtitle>
+
+        <h3 matline class="pokemon-counter accent">
+          {{(trainerPokemon$ | async).length}} / 6 P
+        </h3>
       </mat-card-header>
-  
+      <mat-divider [inset]="true"></mat-divider>
       <mat-card-content>
-          {{pokemonTrainer$ | async | json}}
+
+        <table matSort >
+
+        </table>
+
+
+        <div *ngFor="let pokemon of trainerPokemon$|async" >
+          
+          <h3 class="stat-bar">
+            {{pokemon.name | titlecase}}: 
+
+            <span *ngFor="let stat of pokemon.stats" [style]="'color: ' + getStatColor(stat.stat.name)">
+              <mat-icon [svgIcon]="getStatIcon(stat.stat.name)">
+                
+              </mat-icon>
+              
+              {{stat.base_stat}}
+            </span>
+          </h3>
+          <mat-divider [inset]="true"></mat-divider>
+
+        </div>
+
       </mat-card-content>
   
       <mat-card-actions style="display: flex; justify-content: space-between;">

@@ -18,6 +18,7 @@ export class PokemonsComponent implements OnInit {
   pokemons$: Observable<Pokemon[]> = this.pokemonFacade.allPokemons$;
   pokemon$: Observable<Pokemon> = this.pokemonFacade.selectedPokemon$;
   detailOpen = false;
+  searchTerm;
 
   constructor(
     private pokemonFacade: PokemonsFacade,

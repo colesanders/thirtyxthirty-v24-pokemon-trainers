@@ -27,7 +27,7 @@ import { PokemonTrainersListComponent } from './pokemon-trainers/components/poke
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PokemonTrainersSelectComponent } from './pokemon-trainers/components/pokemon-trainers-select/pokemon-trainers-select.component';
-
+import { StatsOverviewComponent } from './pokemons/components/stats-overview/stats-overview.component';
 
 
 
@@ -46,6 +46,7 @@ import { PokemonTrainersSelectComponent } from './pokemon-trainers/components/po
     RatingComponent,
     MatChipComponent,
     PokemonTrainersSelectComponent,
+    StatsOverviewComponent,
   ],
   imports: [
     BrowserModule,

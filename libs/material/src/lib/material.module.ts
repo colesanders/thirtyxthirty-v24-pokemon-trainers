@@ -21,6 +21,7 @@ import { MatChipsModule } from'@angular/material/chips';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatTabsModule } from '@angular/material/tabs'
+import { MatPaginatorModule } from '@angular/material/paginator'
 
 import { IconRegistrarService } from './services/icon-registrar.service';
 
@@ -48,6 +49,7 @@ import { IconRegistrarService } from './services/icon-registrar.service';
     MatSlideToggleModule,
     MatDialogModule,
     MatTabsModule,
+    MatPaginatorModule
   ],
 })
 export class MaterialModule {

@@ -17,6 +17,13 @@ export class PokemonsService {
     return this.http.get(BASE_URL);
   }
 
+  byBounds(bounds: number[]){
+    const limit = bounds[1]-bounds[0];
+    const offset = bounds[0];
+
+    return this.http.get(BASE_URL + '?offset=' + offset + '&limit=' + limit);
+  }
+
   byName(name: string): Observable<Pokemon>{
     return this.http.get<Pokemon>(this.getUrl(name));
   }

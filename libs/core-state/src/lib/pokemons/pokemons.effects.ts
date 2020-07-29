@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { PokemonsService } from '@thirty/core-data';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { fetch, pessimisticUpdate } from '@nrwl/angular';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, exhaust, exhaustMap, catchError } from 'rxjs/operators';
 import * as PokemonsActions from './pokemons.actions';
 import { Pokemon, PokemonApiObj } from '@thirty/api-interfaces';
+import { merge, of } from 'rxjs';
 
 @Injectable()
 export class PokemonsEffects {
@@ -22,6 +23,35 @@ export class PokemonsEffects {
       ),
       onError: (action, error) => PokemonsActions.loadPokemonsFailure({ error })
     })
+  );
+
+  @Effect() loadPokemonsByBounds$ = this.actions$.pipe(
+    ofType(PokemonsActions.loadPokemonsByBounds),
+    fetch({
+      run: (action) => this.pokemonsService.byBounds(action.bounds).pipe(
+        map((pokemonApiObj: PokemonApiObj) => {
+          const pokemons: Pokemon[] = pokemonApiObj.results;
+          return PokemonsActions.loadPokemonsByBoundsSuccess({ pokemons })
+        })
+      ),
+      onError: (action, error) => PokemonsActions.loadPokemonsByBoundsFailure({ error })
+    })
+  );
+
+  @Effect() loadManyPokemons$ = this.actions$.pipe(
+    ofType(PokemonsActions.loadManyPokemons),
+    exhaustMap((action) => 
+      merge(
+        ...action.pokemonNames.map(name => 
+          this.pokemonsService.byName(name).pipe(
+            map(pokemon => PokemonsActions.loadPokemonSuccess({ pokemon })),
+            catchError(err =>
+              of(PokemonsActions.loadPokemonFailure(err.message)),
+            ),
+          ),
+        ),
+      )
+    )
   );
 
   @Effect() loadPokemon$ = this.actions$.pipe(

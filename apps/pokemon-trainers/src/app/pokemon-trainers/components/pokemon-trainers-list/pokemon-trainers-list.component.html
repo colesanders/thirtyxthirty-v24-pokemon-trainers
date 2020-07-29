@@ -6,7 +6,7 @@
     </mat-card-header>
     <mat-card-content>
       <mat-list>
-        <mat-list-item *ngFor="let pokemonTrainer of pokemonTrainers" (click)="selected.emit(pokemonTrainer)" style="cursor: pointer">
+        <mat-list-item *ngFor="let pokemonTrainer of pokemonTrainers; last as last" (click)="selected.emit(pokemonTrainer)" style="cursor: pointer">
           <h3 matLine> {{ pokemonTrainer.name | titlecase}}</h3>
           <p matLine>
             <span > 
@@ -16,6 +16,7 @@
           <button mat-icon-button color="warn" (click)="deleted.emit(pokemonTrainer); $event.stopImmediatePropagation()" >
             <mat-icon>delete</mat-icon>
           </button>
+          <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
         </mat-list-item>
       </mat-list>
       

@@ -23,6 +23,29 @@ export const loadPokemonsFailure = createAction(
   props<{ error: any }>()
 );
 
+// Load Many Pokemon payload: bounds[number] -> loaded
+export const loadPokemonsByBounds = createAction(
+  '[Pokemons] Load Pokemons By Bounds',
+  props<{ bounds: number[] }>()
+);
+
+export const loadPokemonsByBoundsSuccess = createAction(
+  '[Pokemons] Load Pokemons By Bounds Success',
+  props<{ pokemons: Pokemon[] }>()
+);
+
+export const loadPokemonsByBoundsFailure = createAction(
+  '[Pokemons] Load Pokemons By Bounds Failure',
+  props<{ error: any }>()
+);
+
+// Load Many Pokemon payload: names[string] -> loaded
+export const loadManyPokemons = createAction(
+  '[Pokemons] Load Many Pokemons',
+  props<{ pokemonNames: string[] }>()
+);
+
+
 // Load Pokemon
 export const loadPokemon = createAction(
   '[Pokemons] Load Pokemon',

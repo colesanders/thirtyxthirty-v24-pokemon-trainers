@@ -10,6 +10,7 @@ import { PokemonTrainersOverviewComponent } from './pokemon-trainers/components/
 
 import { LoginGuard } from '@thirty/ui-login';
 import { PokemonTrainersComponent } from './pokemon-trainers/pokemon-trainers.component';
+import { StatsOverviewComponent } from './pokemons/components/stats-overview/stats-overview.component';
 
 const routes: Routes = [
   { path: 'pokemon-trainers', component: PokemonTrainersComponent,
@@ -21,7 +22,15 @@ const routes: Routes = [
       }
     ]
   },
-  { path: 'pokemons', component: PokemonsComponent, canActivate: [LoginGuard]},
+  { path: 'pokemons', component: PokemonsComponent,
+    canActivate: [LoginGuard],
+    children: [
+      {
+        path: ':name', // child route path
+        component: StatsOverviewComponent // child route component that the router renders
+      }
+    ]
+  },
   { path: 'login', component: LoginComponent},
   { path: '404', component: FourOhFourComponent},
   { path: '', redirectTo: '/pokemons', pathMatch: 'full'},

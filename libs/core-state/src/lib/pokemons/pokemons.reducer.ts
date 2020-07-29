@@ -38,6 +38,12 @@ const _pokemonsReducer = createReducer(
     (state, { pokemons }) =>
     pokemonAdapter.setAll(pokemons, { ...state, loaded: true })
   ),
+  // Pokemon loaded by bounds
+  on(
+    PokemonsActions.loadPokemonsByBoundsSuccess,
+    (state, { pokemons }) =>
+    pokemonAdapter.addMany(pokemons, { ...state, loaded: true })
+  ),
   // Load pokemon
   on(
     PokemonsActions.loadPokemonSuccess,
@@ -49,16 +55,17 @@ const _pokemonsReducer = createReducer(
   on(
     PokemonsActions.loadPokemonFailure,
     PokemonsActions.loadPokemonsFailure,
+    PokemonsActions.loadPokemonsByBoundsFailure,
     (state, { error }) => ({
       ...state,
       error
     })
   ),
-
   // load actions
   on(
     PokemonsActions.loadPokemon,
     PokemonsActions.loadPokemons,
+    PokemonsActions.loadPokemonsByBounds,
     (state) => ({
       ...state,
       loaded: false,

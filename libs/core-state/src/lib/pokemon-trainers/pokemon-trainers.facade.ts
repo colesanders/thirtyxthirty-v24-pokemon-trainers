@@ -5,6 +5,7 @@ import { select, Store, Action, ActionsSubject } from '@ngrx/store';
 import { PokemonTrainer } from '@thirty/api-interfaces';
 
 import * as PokemonTrainersActions from './pokemon-trainers.actions';
+import { PokemonsFacade } from '../pokemons/pokemons.facade';
 import * as fromPokemonTrainers from './pokemon-trainers.reducer';
 import * as PokemonTrainersSelectors from './pokemon-trainers.selectors';
 
@@ -25,10 +26,19 @@ export class PokemonTrainersFacade {
     )
   );
 
-  constructor(private store: Store, private actions$: ActionsSubject) { }
+  constructor(
+    private store: Store,
+    private actions$: ActionsSubject,
+    private pokemonsFacade: PokemonsFacade) { }
 
-  selectPokemonTrainer(selectedId: string) {
+  selectPokemonTrainer(pokemonTrainer: PokemonTrainer) {
+    this.dispatch(PokemonTrainersActions.selectPokemonTrainer({ selectedId: pokemonTrainer.id }));
+    this.pokemonsFacade.loadManyPokemon(pokemonTrainer.pokemons);
+  }
+
+  selectPokemonTrainerById(selectedId: string) {
     this.dispatch(PokemonTrainersActions.selectPokemonTrainer({ selectedId }));
+    this.loadPokemonTrainer(selectedId);
   }
 
   resetSelectedPokemonTrainer(){

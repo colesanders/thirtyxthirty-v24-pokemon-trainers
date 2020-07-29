@@ -24,23 +24,13 @@ export class PokemonTrainersEffects {
     ofType(PokemonTrainersActions.loadPokemonTrainer),
     fetch({
       run: (action) => this.pokemonTrainersService.byId(action.pokemonTrainerId).pipe(
-        map((pokemonTrainer: PokemonTrainer) => PokemonTrainersActions.loadPokemonTrainerSuccess({ pokemonTrainer }))
+        map((pokemonTrainer: PokemonTrainer) => {
+          this.pokemonsFacade.loadManyPokemon(pokemonTrainer.pokemons);
+          return PokemonTrainersActions.loadPokemonTrainerSuccess({ pokemonTrainer })
+        })
       ),
       onError: (action, error) => PokemonTrainersActions.loadPokemonTrainerFailure({ error })
     })
-  );
-
-  @Effect() loadTrainerPokemons = this.actions$.pipe(
-    ofType(PokemonTrainersActions.loadPokemonTrainerSuccess),
-    exhaustMap(({ pokemonTrainer }) =>
-      merge(
-        pokemonTrainer.pokemons.map((pokemon) =>{
-          console.log(pokemon);
-
-          return this.pokemonsFacade.loadPokemon(pokemon)
-        }),
-      ),
-    )
   );
 
   @Effect() createPokemonTrainer$ = this.actions$.pipe(
@@ -76,12 +66,26 @@ export class PokemonTrainersEffects {
 
   // Effect to refresh the pokemontrainer after an async operation changes the database
   // Made in order to reduce risk of timing errors between async and sync operations
-  // @Effect() refreshOnSucces = this.actions$.pipe(
-  //   ofType(PokemonTrainersActions.deletePokemonTrainerSuccess, PokemonTrainersActions.updatePokemonTrainerSuccess),
-  //   tap(action => {
-  //     PokemonTrainersActions.loadPokemonTrainers();
-  //   })
-  // );
+  @Effect() refreshOnSuccess$ = this.actions$.pipe(
+    ofType(
+      PokemonTrainersActions.createPokemonTrainerSuccess,
+      PokemonTrainersActions.deletePokemonTrainerSuccess,
+      PokemonTrainersActions.updatePokemonTrainerSuccess,
+      ),
+    fetch({
+      run: (action) => PokemonTrainersActions.loadPokemonTrainers(),
+      onError: (action, error) => PokemonTrainersActions.loadPokemonTrainersFailure({ error })
+    })
+  );
+
+  //selects trainer to be the one created on createdSuccess
+  @Effect() selectOnSuccess$ = this.actions$.pipe(
+    ofType(PokemonTrainersActions.createPokemonTrainerSuccess),
+    fetch({
+      run: (action) => PokemonTrainersActions.selectPokemonTrainer({ selectedId: action.pokemonTrainer.id }),
+      onError: (action, error) => PokemonTrainersActions.loadPokemonTrainerFailure({ error })
+    })
+  );
 
   constructor(
     private actions$: Actions,

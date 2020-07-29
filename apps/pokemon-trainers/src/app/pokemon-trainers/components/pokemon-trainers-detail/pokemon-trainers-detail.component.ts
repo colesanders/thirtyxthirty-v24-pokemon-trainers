@@ -1,12 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import {FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map,tap } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
 
 import { PokemonTrainersSelectComponent } from '../pokemon-trainers-select/pokemon-trainers-select.component';
 import { PokemonTrainer, Pokemon } from '@thirty/api-interfaces';
 import { PokemonsFacade, PokemonTrainersFacade } from '@thirty/core-state';
-import { Observable } from 'rxjs';
-import { map,tap } from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
+import { SnackBarService } from '@thirty/core-data';
+
 
 
 @Component({
@@ -27,20 +29,12 @@ export class PokemonTrainersDetailComponent implements OnInit, OnChanges{
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
     private pokemonsFacade: PokemonsFacade,
-    private pokemonTrainersFacade: PokemonTrainersFacade) { }
+    private pokemonTrainersFacade: PokemonTrainersFacade,
+    private snackBarService: SnackBarService) { }
 
   ngOnInit(): void {
     this.createFormGroup();
     this.pokemonsFacade.loadPokemons();
-
-    this.trainerPokemon$.
-    subscribe((data: Pokemon[]) => {
-      data.forEach((pokemon)=> {
-        if(!pokemon.sprites){
-          this.pokemonsFacade.loadPokemon(pokemon.name);
-        }
-      })
-    })
   }
 
   ngOnChanges(){
@@ -60,32 +54,45 @@ export class PokemonTrainersDetailComponent implements OnInit, OnChanges{
 
   saveTrainer(){
     this.saved.emit(this.pokemonTrainerForm.value);
+    
     this.cancel();
   }
 
   openDialog(): void {
 
-    const dialogRef = this.dialog.open(PokemonTrainersSelectComponent, {
-      height: '100%',
-      data: {pokemons$: this.pokemons$}
-    });
+    if(this.pokemonTrainerForm.valid){
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.pokemonsFacade.loadPokemon(result.name);
+      const dialogRef = this.dialog.open(PokemonTrainersSelectComponent, {
+        data: {pokemons$: this.pokemons$}
+      });
 
+
+      dialogRef.afterClosed().subscribe(result => {
         const pokemonControl = this.pokemonTrainerForm.get('pokemons');
-        let newPokemonValue;
-        if(pokemonControl.value){
-          newPokemonValue = [...pokemonControl.value, result.name];
-        }else{
-          newPokemonValue = [result.name];
+  
+        if(result){
+          if(pokemonControl.value.length < 6){
+            this.pokemonsFacade.loadPokemon(result.name);
+  
+            let newPokemonValue;
+            if(pokemonControl.value){
+              newPokemonValue = [...pokemonControl.value, result.name];
+            }else{
+              newPokemonValue = [result.name];
+            }
+            pokemonControl.patchValue(newPokemonValue);
+            this.saveTrainer();
+          }else{
+            this.snackBarService.openSnackBar('Max Pokemon', 'Close', 2000)
+          }
+          
         }
-        pokemonControl.patchValue(newPokemonValue);
-        this.saveTrainer();
-      }
+      });
 
-    });
+
+    }else{
+      this.snackBarService.openSnackBar('Choose Trainer Name First', 'Close', 2000)
+    }
   }
 
   cancel(){

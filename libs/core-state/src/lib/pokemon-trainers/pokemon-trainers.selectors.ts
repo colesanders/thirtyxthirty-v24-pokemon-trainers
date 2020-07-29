@@ -54,18 +54,22 @@ export const getTrainerPokemons = createSelector(
   (pokemonTrainer: PokemonTrainer, pokemons: Pokemon[]) => {
 
     const pokemonList = pokemons.filter((pokemon: Pokemon) => 
-      pokemonTrainer?.pokemons.includes(pokemon.name)
+      pokemonTrainer?.pokemons?.includes(pokemon.name)
     )
 
-    const newPokemons = [];
-    pokemonTrainer?.pokemons.map((name) => {
-      pokemonList.forEach((pokemon)=> {
-        if(pokemon.name === name){
-          newPokemons.push(pokemon);
-        }
+    if(pokemonTrainer){
+      const newPokemons = [];
+      pokemonTrainer?.pokemons?.map((name) => {
+        pokemonList.forEach((pokemon)=> {
+          if(pokemon.name === name){
+            newPokemons.push(pokemon);
+          }
+        })
       })
-    })
-
-    return newPokemons
+      return newPokemons
+    }else{
+      return pokemonList
+    }
+    
   }
 );

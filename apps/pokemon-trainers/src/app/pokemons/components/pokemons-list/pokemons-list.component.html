@@ -1,18 +1,25 @@
 <mat-card class="mat-card-light">
     <mat-card-header>
       <mat-card-title class="accent">
-        Pokemons List
+        Pokemons List 
       </mat-card-title>
+
     </mat-card-header>
     <mat-card-content>
       <mat-list>
-        <mat-list-item *ngFor="let pokemon of pokemons" (click)="selected.emit(pokemon)" style="cursor: pointer">
+        <mat-list-item *ngFor="let pokemon of pokemons | slice:sliceStart:sliceEnd ; last as last" (click)="selected.emit(pokemon)" style="cursor: pointer">
           <h3 matLine> {{ pokemon.name | titlecase}}</h3>
           <p matLine>
             <span >
             </span> 
           </p>
+          <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
         </mat-list-item>
       </mat-list>
     </mat-card-content>
+    <mat-card-actions>
+      <mat-paginator [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex"
+      [pageSizeOptions]="pageSizeOptions" (page)="updatePageSlice($event)" >
+      </mat-paginator>
+    </mat-card-actions>
   </mat-card>

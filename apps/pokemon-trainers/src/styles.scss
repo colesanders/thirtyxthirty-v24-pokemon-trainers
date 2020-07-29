@@ -77,6 +77,7 @@ thirty-root {
 
 .secondary-toolbar {
   display: flex; 
+  justify-content: space-between;
   background-color: grey;
   
   border: medium solid black;
@@ -131,6 +132,8 @@ mat-sidenav {
 
   .mat-card-dark {
     background-color: grey;
+    border: medium solid black;
+    border-radius: 10px;
   }
   .mat-card-light {
     background-color: whitesmoke;

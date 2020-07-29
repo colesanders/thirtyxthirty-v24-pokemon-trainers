@@ -18,6 +18,10 @@ export class PokemonsFacade {
 
   constructor(private store: Store, private actions$: ActionsSubject) { }
 
+  loadManyPokemon(pokemonNames: string[]){
+    this.dispatch(PokemonsActions.loadManyPokemons({ pokemonNames }))
+  }
+
   selectPokemon(selectedId: string) {
     this.dispatch(PokemonsActions.selectPokemon({ selectedId }));
   }
@@ -28,6 +32,10 @@ export class PokemonsFacade {
 
   loadPokemons() {
     this.dispatch(PokemonsActions.loadPokemons());
+  }
+
+  loadPokemonsByBounds(bounds: number[]) {
+    this.dispatch(PokemonsActions.loadPokemonsByBounds({ bounds }));
   }
 
   loadPokemon(pokemonId: string) {

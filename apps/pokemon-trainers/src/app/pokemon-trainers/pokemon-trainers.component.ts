@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { PokemonTrainersFacade, PokemonsFacade } from '@thirty/core-state'
-import { PokemonTrainer, Pokemon } from '@thirty/api-interfaces';
+import { PokemonTrainersFacade } from '@thirty/core-state'
+import { PokemonTrainer } from '@thirty/api-interfaces';
 import { SnackBarService } from '@thirty/core-data';
 import { Animations } from '../animations';
 
@@ -23,13 +23,11 @@ export class PokemonTrainersComponent implements OnInit {
 
   constructor(
     private pokemonTrainersFacade: PokemonTrainersFacade,
-    private pokemonsFacade: PokemonsFacade,
     private router: Router,
     private snackBarService: SnackBarService) { }
 
   ngOnInit(): void {
     this.pokemonTrainersFacade.loadPokemonTrainers();
-    this.pokemonsFacade.loadPokemons();
     this.pokemonTrainersFacade.mutations$.subscribe((action: any) => this.refresh(action.type.split(' ')));
   }
 
@@ -48,12 +46,13 @@ export class PokemonTrainersComponent implements OnInit {
   }
 
   select(pokemonTrainer: PokemonTrainer): void{
-    this.pokemonTrainersFacade.selectPokemonTrainer(pokemonTrainer.id);
+    this.pokemonTrainersFacade.selectPokemonTrainer(pokemonTrainer);
     this.focusDetail();
   }
 
   delete(pokemonTrainer: PokemonTrainer): void{
     this.pokemonTrainersFacade.deletePokemonTrainer(pokemonTrainer);
+    this.cancel();
   }
 
   save(pokemonTrainer: PokemonTrainer): void{

@@ -1,0 +1,31 @@
+<mat-card class="mat-card-dark"> 
+    <div *ngIf="(pokemon$|async)">
+      <mat-card-header style="display: flex; justify-content: space-between;">
+        <mat-card-title class="accent">
+          Pokemon: 
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{ (pokemon$ | async).name | titlecase}} 
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+
+        <h3 class="stat-bar">
+
+          <span *ngFor="let stat of (pokemon$|async).stats" [style]="'color: ' + getStatColor(stat.stat.name)">
+            <mat-icon [svgIcon]="getStatIcon(stat.stat.name)">
+              
+            </mat-icon>
+            
+            {{stat.base_stat}}
+          </span>
+        </h3>
+
+      </mat-card-content>
+      <mat-card-actions style="display: flex; justify-content: space-between;">
+        <button type="button" mat-button (click)="close()">
+          Close
+        </button>
+      </mat-card-actions>
+    </div>
+  </mat-card>

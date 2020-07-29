@@ -1,13 +1,17 @@
 <mat-card class="mat-card-light"> 
-    <mat-card-header style="display: flex; justify-content: space-between;">
-      <mat-card-title class="accent">
+    <mat-card-header class="accent">
+      <mat-card-title>
         <span *ngIf="pokemonTrainerForm.value.id !== null; else elseBlock">
-          Editing PokemonTrainer
+          Editing Pokemon Trainer
         </span>
         <ng-template #elseBlock>
-          Create PokemonTrainer
+          Create Pokemon Trainer
         </ng-template>
       </mat-card-title>
+
+      <h3 matline class="pokemon-counter">
+        {{(trainerPokemon$ | async).length}} / 6 P
+      </h3>
       
     </mat-card-header>
   <form [formGroup]="pokemonTrainerForm" >
@@ -18,9 +22,10 @@
         <input matInput formControlName="name">
       </mat-form-field>
 
+
       <mat-label>Pokemon: </mat-label>
       <mat-list >
-        <mat-list-item *ngFor="let pokemon of (trainerPokemon$ | async); index as i"
+        <mat-list-item *ngFor="let pokemon of (trainerPokemon$ | async); index as i, last as last"
         class="list-item">
           <h3 matLine>{{pokemon.name | titlecase}}</h3>
 
@@ -31,6 +36,7 @@
             <mat-icon>delete</mat-icon>
           </button>
 
+          <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
         </mat-list-item>
       </mat-list>
       <br>
