@@ -1,15 +1,4 @@
-<span class="accent">
-    Choose A Pokemon to Add to Your Trainer
-</span>
-
-<thirty-pokemons-list [pokemons]="(data.pokemons$ | async)" (selected)="select($event)">
+<thirty-pokemons-list [pokemons]="(data.pokemons$ | async)" 
+(selected)="select($event)">
     
 </thirty-pokemons-list>
-
-    
-
-<mat-card-actions>
-    <button mat-button (click)="cancel()">
-        Cancel
-    </button>
-</mat-card-actions>

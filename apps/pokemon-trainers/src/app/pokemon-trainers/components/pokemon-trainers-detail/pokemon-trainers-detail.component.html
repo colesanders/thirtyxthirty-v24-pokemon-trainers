@@ -1,4 +1,4 @@
-<mat-card class="mat-card-light"> 
+<mat-card class="mat-card-dark mat-elevation-z8"> 
     <mat-card-header class="accent">
       <mat-card-title>
         <span *ngIf="pokemonTrainerForm.value.id !== null; else elseBlock">
@@ -29,6 +29,10 @@
         class="list-item">
           <h3 matLine>{{pokemon.name | titlecase}}</h3>
 
+          <span *ngFor="let type of pokemon.types">
+            <mat-icon [svgIcon]="type.type.name" style="margin-right: 5px;"></mat-icon>
+          </span>
+
           <img *ngIf="pokemon.sprites?.front_default" 
           [src]="pokemon.sprites.front_default"  alt="pokemon image">
           
@@ -43,7 +47,7 @@
 
       <section style="width: 100%; text-align: center;">
         <button mat-icon-button (click)="openDialog()">
-          <mat-icon style="color: green;">
+          <mat-icon style="color: limegreen;">
             add
           </mat-icon>
         </button>

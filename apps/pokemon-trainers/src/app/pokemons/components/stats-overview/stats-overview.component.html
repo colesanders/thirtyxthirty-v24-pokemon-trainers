@@ -1,5 +1,5 @@
-<mat-card class="mat-card-dark"> 
-    <div *ngIf="(pokemon$|async)">
+<mat-card *ngIf="(pokemon$|async)" 
+class="mat-card-dark mat-elevation-z5" style="margin-top: 10px"> 
       <mat-card-header style="display: flex; justify-content: space-between;">
         <mat-card-title class="accent">
           Pokemon: 
@@ -26,5 +26,4 @@
           Close
         </button>
       </mat-card-actions>
-    </div>
   </mat-card>

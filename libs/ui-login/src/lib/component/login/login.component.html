@@ -1,18 +1,19 @@
 <div class="pokemons-containers">
-    <mat-card class="mat-card-light">
+    <mat-card class="mat-card-dark">
       <mat-card-header>
         <mat-card-title class="accent">
           Login
         </mat-card-title>
       </mat-card-header>
-      <form [formGroup]="loginForm" (ngSubmit)="login();">
-          <mat-card-content>
-              <mat-form-field class="full-width login-border" style="margin-bottom: 8px;">
+      <form 
+      [formGroup]="loginForm" (ngSubmit)="login();">
+          <mat-card-content >
+              <mat-form-field class="full-width  mat-elevation-z5 login-border" style="margin-bottom: 8px;">
                   <input matInput required placeholder="Username" type="text"
                   formControlName="username">
               </mat-form-field>
             <br>
-              <mat-form-field class="full-width login-border">
+              <mat-form-field class="full-width mat-elevation-z5 login-border">
                   <input matInput required placeholder="Password" type="text"
                   formControlName="password">
               </mat-form-field>

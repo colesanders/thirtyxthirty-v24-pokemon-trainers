@@ -38,11 +38,12 @@ $pokemon-trainers-theme: mat-light-theme((
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
-
-$primary-color: #700108;
+$primary-color: white;
 $secondary-color: #37474F;
-$tertiary-color: #154918;
-$accent-color: #afa515;
+$tertiary-color: #263238;
+$accent-color: #8e0900;
+$card-background: grey;
+$anti-accent-color: white;
 
 html,
 body {
@@ -78,7 +79,7 @@ thirty-root {
 .secondary-toolbar {
   display: flex; 
   justify-content: space-between;
-  background-color: grey;
+  background-color: $card-background;
   
   border: medium solid black;
   border-top: thin solid black;
@@ -106,6 +107,10 @@ mat-sidenav {
   color: $accent-color;
 }
 
+.anti-accent {
+  color: $anti-accent-color;
+}
+
 .mat-sidenav-container {
   flex: 1;
   background-color: $primary-color;
@@ -131,7 +136,7 @@ mat-sidenav {
   }
 
   .mat-card-dark {
-    background-color: grey;
+    background-color: $card-background;
     border: medium solid black;
     border-radius: 10px;
   }
@@ -141,18 +146,150 @@ mat-sidenav {
     border-radius: 10px;
   }
 }
+.login-border {
+  border: 2px solid $tertiary-color;
+  border-radius: 5px;
+}
 
 .mat-card-dark {
-  background-color: grey;
+  background-color: $card-background;
   border: medium solid black;
   border-radius: 10px;
 
   table{
-    background-color: grey;
+    background-color: $card-background;
   }
 }
+
 .mat-card-light {
   background-color: whitesmoke;
-  border: medium solid black;
+  border: thin solid black;
   border-radius: 10px;
+}
+
+
+//pokemon type icon styles
+.wrapper {
+  width: 100%;
+  margin: auto auto;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 8ch auto;
+  align-content: center;
+  align-items: center;
+}
+
+.type-icon {
+  border-radius: 100%;
+  height: 100px;
+  width: 100px;
+  margin:auto;
+  margin-bottom: 15px;
+  transition: 200ms all;
+}
+
+.type-icon:hover{
+  filter: saturate(200%);
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.type-icon-img {
+  height: 60%;
+  width: 60%;
+  margin: 20%;
+}
+
+
+
+// pokemon type color set
+.bug {
+  background: #92BC2C;
+  box-shadow: 0 0 20px #92BC2C;
+}
+
+.dark {
+  background: #595761;
+  box-shadow: 0 0 20px #595761;
+}
+
+.dragon {
+  background: #0C69C8;
+  box-shadow: 0 0 20px #0C69C8;
+}
+
+.electric {
+  background: #F2D94E;
+  box-shadow: 0 0 20px #F2D94E;
+}
+
+.fire {
+  background: #FBA54C;
+  box-shadow: 0 0 20px #FBA54C;
+}
+
+.fairy {
+  background: #EE90E6;
+  box-shadow: 0 0 20px #EE90E6;
+}
+
+.fighting {
+  background: #D3425F;
+  box-shadow: 0 0 20px #D3425F;
+}
+
+.flying {
+  background: #A1BBEC;
+  box-shadow: 0 0 20px #A1BBEC;
+}
+
+.ghost {
+  background: #5F6DBC;
+  box-shadow: 0 0 20px #5F6DBC;
+}
+
+.grass {
+  background: #5FBD58;
+  color: #5FBD58;
+  box-shadow: 0 0 20px #5FBD58;
+}
+
+.ground {
+  background: #DA7C4D;
+  box-shadow: 0 0 20px #DA7C4D;
+}
+
+.ice {
+  background: #75D0C1;
+  box-shadow: 0 0 20px #75D0C1;
+}
+
+.normal {
+  background: #A0A29F;
+  box-shadow: 0 0 20px #A0A29F;
+}
+
+.poison {
+  background: #B763CF;
+  box-shadow: 0 0 20px #B763CF;
+}
+
+.psychic {
+  background: #FA8581;
+  box-shadow: 0 0 20px #FA8581;
+}
+
+.rock {
+  background: #C9BB8A;
+  box-shadow: 0 0 20px #C9BB8A;
+}
+
+.steel {
+  background: #5695A3;
+  box-shadow: 0 0 20px #5695A3;
+}
+
+.water {
+  background: #539DDF;
+  box-shadow: 0 0 20px #539DDF;
 }

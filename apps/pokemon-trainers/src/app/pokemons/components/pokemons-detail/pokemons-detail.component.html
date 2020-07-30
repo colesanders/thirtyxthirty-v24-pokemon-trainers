@@ -1,4 +1,4 @@
-<mat-card class="mat-card-light"> 
+<mat-card class="mat-card-dark mat-elevation-z8"> 
     <mat-card-header style="display: flex; justify-content: space-between;">
       <mat-card-title class="accent">
         Pokemon
@@ -9,10 +9,17 @@
 
         <h3 matLine>{{pokemon.name | titlecase}}</h3>
 
-        
-        <img *ngIf="pokemon.sprites; else elseblock" [src]="pokemon.sprites.front_default"  alt="pokemon image">
-        
-          
+        <span *ngIf="pokemon.sprites; else elseblock" class="wrapper">
+          <img  [src]="pokemon.sprites.front_default"  alt="pokemon image">
+
+          <section>
+            <div *ngFor="let type of pokemon.types" (click)="typeBlurb(type.type.name)"
+            [class]="'type-icon ' + type.type.name">
+              <img aria-label="type.type.name" class="type-icon-img" [src]="'/assets/type-icons/' + type.type.name + '.svg'">
+            </div>
+          </section>
+        </span>
+
         <ng-template #elseblock>
           <mat-spinner></mat-spinner>
         </ng-template>
@@ -28,7 +35,7 @@
         Cancel
       </button>
       <button mat-icon-button style="margin-right: 15px;" (click)="openDialog()">
-        <mat-icon style="color: green;">add</mat-icon>
+        <mat-icon style="color: limegreen;">add</mat-icon>
       </button>
     </mat-card-actions>
 </mat-card>

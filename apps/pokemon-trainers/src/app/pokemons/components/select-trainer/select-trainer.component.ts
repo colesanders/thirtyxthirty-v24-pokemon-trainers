@@ -17,10 +17,6 @@ export class SelectTrainerComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  cancel(): void {
-    this.dialogRef.close();
-  }
-
   select(pokemonTrainer: PokemonTrainer){
     this.dialogRef.close(pokemonTrainer)
   }

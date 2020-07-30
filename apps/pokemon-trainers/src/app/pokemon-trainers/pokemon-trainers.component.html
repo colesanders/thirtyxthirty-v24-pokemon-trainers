@@ -1,9 +1,10 @@
 <div>
     <div class="secondary-div">
-        <mat-toolbar class="secondary-toolbar" style="display: flex; justify-content: space-between;">
+        <mat-toolbar class="secondary-toolbar mat-elevation-z5" 
+        style="display: flex; justify-content: space-between;">
             <span>Pokemon Trainer List</span>
-            <div *ngIf="(pokemonTrainer$|async) !== undefined && (pokemonTrainer$|async) !== null">
-                <a mat-button class="nav-link" 
+            <div *ngIf="(pokemonTrainer$|async)">
+                <a mat-button class="nav-link mat-elevation-z5" 
                 [routerLink]="(pokemonTrainer$ | async).id" routerLinkActive="active">
                     <span >
                         Pokemon Trainer Overview

@@ -4,6 +4,9 @@ import { Pokemon, PokemonTrainer } from '@thirty/api-interfaces';
 import { PokemonsFacade, PokemonTrainersFacade } from '@thirty/core-state';
 import { SelectTrainerComponent } from '../select-trainer/select-trainer.component'
 import { SnackBarService } from '@thirty/core-data';
+import { 
+  MatSnackBarVerticalPosition,
+  MatSnackBarHorizontalPosition } from '@angular/material/snack-bar'
 
 @Component({
   selector: 'thirty-pokemons-detail',
@@ -13,6 +16,7 @@ import { SnackBarService } from '@thirty/core-data';
 export class PokemonsDetailComponent implements OnInit{
   @Input() pokemon: Pokemon;
   @Output() cancelled = new EventEmitter();
+
 
   pokemonTrainers$ = this.pokemonTrainersFacade.allPokemonTrainers$;
 
@@ -28,6 +32,15 @@ export class PokemonsDetailComponent implements OnInit{
     if(this.pokemon){
       this.pokemonsFacade.loadPokemon(this.pokemon.name)
     }
+  }
+
+  typeBlurb(type: string){
+    //first character is uppercase
+    type = type.charAt(0).toUpperCase() + type.slice(1);
+
+    const horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+    const verticalPosition: MatSnackBarVerticalPosition = 'top';
+    this.snackBarService.openSnackBarByPostion(type, horizontalPosition,verticalPosition)
   }
 
   saveTrainer(pokemonTrainer: PokemonTrainer){

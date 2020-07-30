@@ -5,7 +5,7 @@ import { map,tap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 
 import { PokemonTrainersSelectComponent } from '../pokemon-trainers-select/pokemon-trainers-select.component';
-import { PokemonTrainer, Pokemon } from '@thirty/api-interfaces';
+import { PokemonTrainer, Pokemon, PokemonTypeColors, getTypeColor } from '@thirty/api-interfaces';
 import { PokemonsFacade, PokemonTrainersFacade } from '@thirty/core-state';
 import { SnackBarService } from '@thirty/core-data';
 
@@ -63,6 +63,11 @@ export class PokemonTrainersDetailComponent implements OnInit, OnChanges{
     list = list.filter((str, i)=> i !== index);
 
     return list;
+  }
+
+  getTypeColor(type: string){
+    const typeColor = PokemonTypeColors[getTypeColor(type)];
+    return typeColor;
   }
 
   openDialog(): void {

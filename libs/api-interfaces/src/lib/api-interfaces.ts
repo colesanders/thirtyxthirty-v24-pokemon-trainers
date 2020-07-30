@@ -24,8 +24,16 @@ export interface Pokemon {
     front_shiny_female: string,
   },
   stats?: PokemonStat[],
-  types?: [],
+  types?: PokemonType[],
   weight?: number,
+}
+
+export interface PokemonType {
+  slot: number,
+  type: {
+    name: string,
+    url: string,
+  }
 }
 
 export interface PokemonStat {

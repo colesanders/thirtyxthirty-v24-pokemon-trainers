@@ -1,4 +1,4 @@
-<mat-card class="mat-card-light">
+<mat-card class="mat-card-dark mat-elevation-z8">
     <mat-card-header>
       <mat-card-title class="accent">
         PokemonTrainer List
@@ -10,7 +10,7 @@
           <h3 matLine>Trainer {{ pokemonTrainer.name | titlecase}}</h3>
           <p matLine>
             <span > 
-              {{ pokemonTrainer.pokemons.length }}/6 Pokemon
+              {{ pokemonTrainer.pokemons?.length }}/6 Pokemon
             </span> 
           </p>
   

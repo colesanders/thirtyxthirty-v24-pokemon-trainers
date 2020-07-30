@@ -1,32 +1,32 @@
-<div class="secondary-div">
-    <mat-toolbar class="secondary-toolbar" 
-    style="display: flex; justify-content: space-between;">
-        <span>Pokemon List</span>
-
-        <div *ngIf="(pokemon$|async)">
-            <a mat-button class="nav-link" 
-            [routerLink]="(pokemon$ | async).name" routerLinkActive="active">
-                <span >
-                    Pokemon Stat Overview
-                </span>
-            </a>
-        </div>
-
-    </mat-toolbar>
-</div>
-
-<div class="pokemons-containers">
-    <div class="pokemons-list">
-        <thirty-pokemons-list [pokemons]="pokemons$ | async" (selected)="select($event)">
-        </thirty-pokemons-list>
+<div>
+    <div class="secondary-div ">
+        <mat-toolbar class="secondary-toolbar mat-elevation-z15" 
+        style="display: flex; justify-content: space-between;">
+            <span>Pokemon List</span>
+            <div *ngIf="(pokemon$|async)">
+                <a mat-button class="nav-link mat-elevation-z5" 
+                [routerLink]="(pokemon$ | async).name" routerLinkActive="active">
+                    <span >
+                        Pokemon Stat Overview
+                    </span>
+                </a>
+            </div>
+        </mat-toolbar>
     </div>
-    <div [@openClose]="detailOpen ? 'open' : 'closed'" 
-    (click)="focusDetail();$event.stopImmediatePropagation()">
-        <thirty-pokemons-detail [pokemon]="pokemon$ | async" (cancelled)="cancel()"> 
-        </thirty-pokemons-detail>
-
-        <router-outlet >
-        </router-outlet>
+    
+    <div class="pokemons-containers">
+        <div class="pokemons-list">
+            <thirty-pokemons-list [pokemons]="pokemons$ | async" (selected)="select($event)">
+            </thirty-pokemons-list>
+        </div>
+        <div [@openClose]="detailOpen ? 'open' : 'closed'" 
+        (click)="focusDetail();$event.stopImmediatePropagation()">
+            <thirty-pokemons-detail [pokemon]="pokemon$ | async" (cancelled)="cancel()"> 
+            </thirty-pokemons-detail>
+    
+            <router-outlet >
+            </router-outlet>
+        </div>
     </div>
 </div>
 

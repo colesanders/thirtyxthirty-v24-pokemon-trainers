@@ -14,6 +14,8 @@ export class AppComponent {
     description: "30x30-V18"
   };
 
+  sideBarOpen = true;
+
   links = [
     { path: '/pokemons', title: 'Pokemons' },
     { path: '/pokemon-trainers', title: 'Pokemon Trainers' },
